@@ -1,0 +1,58 @@
+{% extends "orders/new_base_generic.html" %}
+{% load static %}
+{% block content %}
+<h4>Просмотри заявки</h4>
+<p><b>Вы просматриваете заявку №<span id="order_id">{{order.id}}</span> сделанная заказчиком: <span id="userLast">{{user.profile.last_name}}</span> <span id="userFirst">{{user.profile.first_name}}</span> <span id="userFamily">{{user.profile.family_name}}</span>. Время: {{order.time|date:"d/m/Y G:i"}}</b></p>
+<p>По всем вопросам касательно заявки обращаться по мобильному телефону: <span id="phoneNumber">{{user.profile.phone_number}}</span></p>
+<p>Или по внутреннему телефону Ниармедик(8-495-741-49-89): <span id="insideNumber">{{user.profile.inside_number}}</span></p>
+<p>Контактный e-mail: <span id="email">{{user.email}}</span></p>
+<br/>
+<p><b>Информация отправителя:</b></p>
+<p>Организация: <span id="outputOrg">{{order.outputOrg}}</span></p>
+<p>Контактное лицо: <span id="outputContact">{{order.outputContact}}</span></p>
+<p>Номер телефона: <span id="outputNumber">{{order.outputNumber}}</span></p>
+<p>Адрес: <span id="outputAdress">{{order.outputAdress}}</span></p>
+<br/>
+<p><b>Информация получателя:</b></p>
+<p>Организация: <span id="inputOrg">{{order.inputOrg}}</span></p>
+<p>Контактное лицо: <span id="inputContact">{{order.inputContact}}</span></p>
+<p>Номер телефона: <span id="inputNumber">{{order.inputNumber}}</span></p>
+<p>Адрес: <span id="inputAdress">{{order.inputAdress}}</span></p>
+<br/>
+<p><b>Описание груза:</b></p>
+<p>	{% if order.cargoDescripton is None %}
+	<span id="cargo">Характер груза не указан</span>
+	{%else%}
+	Характер груза: <span id="cargo">{{order.cargoDescripton}}</span>
+	{%endif%}
+</p>
+<p>
+	{% if order.weight is Null %}
+	<span id="weight">Вес не указан</span>
+	{% else %}
+	Вес: <span id="weight">{{order.weight}}</span>
+	{% endif %}
+</p>
+<br/>
+<p><b>Комментарии:</b></p>
+<p>
+	{% if order.comments is None %}
+	<span id="comments">Комментарии не указаны</span>
+	{% else %}
+	<span id="comments">{{order.comments}}</span>
+	{% endif %}
+</p>
+<br/>
+<p><b>Вложения:</b></p>
+{% if not images %}
+<p>Вложений нет</p>
+{%else%}
+{% for image in images%}
+<button class="btn btn-info" onclick="window.open('/media/{{image}}','_blank');">Открыть вложение</button>
+<!-- <img src="/media/{{image}}" style="width: 100px; height: 100px;"> -->
+{% endfor %}
+{%endif%}
+
+<button class="btn btn-success" onclick="printOrder()"><span class="glyphicon glyphicon-print"></span>Распечатать заявку</button>
+
+{% endblock %}

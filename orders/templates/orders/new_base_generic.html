@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% block title %}<title>Online order</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+  <!-- Select2 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
+  <script src="{% static 'orders/js/scripts.js' %}"></script>
+  <!-- boostrap notify -->
+  <script src="{% static 'orders/bower_components/remarkable-bootstrap-notify/bootstrap-notify.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'orders/bower_components/animate.css/animate.css' %}">
+  <script>
+    var script_src = "{% static "orders/js/scripts.js" %}"
+  </script>
+</head>
+
+<body>
+  {% block sidebar %}
+  <nav class="navbar navbar-default navbar-xs">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'index' %}">Ниармедик Плюс</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        {% if user.is_authenticated %}
+        <ul class="nav navbar-nav">
+          <li {% if request.path == '/orders/index/' %} class="active" {%endif%}><a href="{% url 'index' %}">Главная</a></li>
+          <li {% if request.path == '/orders/makeOrder/' %} class="active" {%endif%}><a href="{% url 'makeOrder' %}">Сделать заявку</a></li>
+          <li {% if request.path == '/orders/showOrders/' %} class="active" {%endif%}><a href="{% url 'showOrders' %}">Просмотреть заявки</a></li>
+          <li {% if request.path == '/orders/showTemplates/' %} class="active" {%endif%}><a href="{% url 'showTemplates' %}">Адресная книга</a></li>
+        </ul>
+        {% endif %}
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'register' %}">Sign up</a></li>
+          {% if user.is_authenticated %}
+          <li>User: {{user.get_username}}</li>
+          <li><a href="{%url 'logout'%}?next={{request.path}}">Logout</a></li>
+          {% else %}
+          <li><a href="{%url 'login'%}?next={{request.path}}">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+  {% if request.path == '/orders/index/' %}
+  {%endif%}
+  
+  <input id="u_id" style="display: none;"  value="{{user.id}}"></input>
+  <p>{{static_url}}</p>
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+</html>

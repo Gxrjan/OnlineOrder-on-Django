@@ -1,0 +1,75 @@
+.navbar {
+	margin-bottom: 0px;
+}
+
+.navbar-viewOrders {
+	margin-bottom: 0px;
+}
+.form-control {
+	margin-bottom: 5px;
+}
+
+label {
+	font-size: 12px;
+}
+
+.attachement {
+	margin-bottom: 5px;
+}
+
+/*@media screen and (min-width: 1025px){*/
+
+
+
+body {
+	background-color: #f6f1f1;
+}
+/*}*/
+h4 {
+	margin-top: 40px; 
+	text-align: center;
+}
+
+.col-centered {
+	float: none;
+	margin: auto;
+}
+
+#orders{
+	table-layout: fixed;
+	word-wrap:break-word;
+    width: 100%;
+    border-collapse: collapse;
+    /*margin-top: 40px;*/
+    margin-bottom: 10px;
+}
+
+#order_filter {
+	float: left;
+}
+
+#orders tr:nth-child(even){background-color: white;}
+
+#orders th{background-color: white;}
+
+#orders tr:hover {
+    cursor: pointer;
+    background-color: #b3c0ee;
+}
+
+/*loader*/
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}

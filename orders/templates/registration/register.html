@@ -1,0 +1,50 @@
+{% extends "orders/new_base_generic.html" %}
+{% block content %}
+	<h1>Registration page</h1>
+	<form method="POST" action="{% url 'register' %}">
+		{% csrf_token %}
+		{% if forms.errors %}
+		<p>There are errors</p>
+		{% endif %}
+		<div>
+			<td>{{form.username.label_tag}}</td>
+			<td>{{form.username}}</td>
+		</div>
+		<div>
+			<td><label>Фамилия:</label></td>
+			<td>{{profile_form.last_name}}</td>
+		</div>
+		<div>
+			<td><label>Имя:</label></td>
+			<td>{{profile_form.first_name}}</td>
+		</div>
+		<div>
+			<td><label>Отчество:</label></td>
+			<td>{{profile_form.family_name}}</td>
+		</div>
+		<div>
+			<td><label>Мобильный телефон:</label></td>
+			<td>{{profile_form.phone_number}}</td>
+		</div>
+		<div>
+			<td><label>Внутренний телефон:</label></td>
+			<td>{{profile_form.inside_number}}</td>
+		</div>
+		<div>
+			<td><label>E-mail:</label></td>
+			<td>{{profile_form.email}}</td>
+		</div>
+		<div>
+			<td>{{form.password1.label_tag}}</td>
+			<td>{{form.password1}}</td>
+		</div>
+		<div>
+			<td>{{form.password2.label_tag}}</td>
+			<td>{{form.password2}}</td>
+		</div>
+		{%if profile.form.errors %}
+		<p>There are errors</p>
+		{%endif%}
+		<input type="submit" value="register">
+	</form>
+{% endblock %}

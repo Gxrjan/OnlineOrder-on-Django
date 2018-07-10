@@ -1,0 +1,67 @@
+{% extends 'orders/new_base_generic.html' %}
+{%block content%}
+<h4>Адресная книга</h4>
+<div class="row">
+	<div class="col-xs-4"></div>
+	<div class="col-xs-4">
+		<form action="" method="POST">
+			{%csrf_token%}
+			{{form.name}}
+			{{form.organization}}
+			{{form.contact}}
+			{{form.number}}
+			{{form.adress}}
+			<input type="submit" name="submit" class="btn btn-primary btn-block" value="Создать шаблон">
+		</form>
+	</div>
+	<div class="col-xs-4">
+		{% if form.name.errors %}
+		<div class="alert alert-danger alert-dismissable">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			{% for error in form.name.errors %}
+			{{error}}
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+</div>
+<table id="orders" class="table table-striped table-bordered table-hover">
+	<thead>
+		<tr><th>Номер шаблона</th><th>Название шаблона</th><th>Организация</th><th>Контакное лицо</th><th>Номер телефона</th><th>Адрес</th></tr>
+	</thead>
+	<tbody>
+		{% for template in templates %}
+		<tr class="clickable-row" data-href="{% url 'showTemplate' template.id %}"><td>{{template.id}}</td><td>{{template.name}}</td><td>{{template.organization}}</td><td>{{template.contact}}</td><td>{{template.number}}</td><td>{{template.adress}}</td></tr>
+		{% endfor %}
+	</tbody>
+</th>
+</table>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+		var table = $('#orders').DataTable({
+			"order": [[ 0, "desc" ]],
+			"language": {
+				"lengthMenu": "Отображать _MENU_ заявок на странице",
+				"zeroRecords": "Ничего не найдено",
+				"info": "Отображается страница _PAGE_ из _PAGES_",
+				"infoEmpty": "Ничего не найдено",
+				"loadingRecords": "Загрузка...",
+				"processing":     "Обработка...",
+				"search":         "Поиск:",
+				"infoFiltered": "(filtered from _MAX_ total records)",
+				"paginate": {
+					"first":      "Первая",
+					"last":       "Последняя",
+					"next":       "След",
+					"previous":   "Пред"
+				}
+			}
+
+
+		});
+	} );
+
+
+</script>
+{%endblock%}

@@ -1,0 +1,12 @@
+{% extends "orders/new_base_generic.html" %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+	<p><b>Вы залогинились под пользователем №{{user.id}}</b></p>
+	<p><b>ФИО: </b>{{user.profile.last_name}} {{user.first_name}} {{user.profile.family_name}}</p>
+	<p><b>Мобильный телефон:</b> {{user.profile.phone_number}}</p>
+	<p><b>Внутренний телефон:</b> {{user.profile.inside_number}}</p>
+	<p><b>E-mail: </b>{{user.profile.email}}</p>
+	{% endif %}
+{% endblock %}
